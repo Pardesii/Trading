@@ -1,0 +1,67 @@
+nav {
+   background-color: #032069 !important;
+   border: none !important;
+   color: white !important;
+    text-align: center;
+}
+.navbar-inverse .navbar-brand {
+    color: white !important;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: white !important;
+    margin-left: 50px;
+}
+    body {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: white !important;
+  background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+}
+
+.btn {
+    background-color:#1e8475;
+}
+
+table {
+   background-color: #fff;
+   background-clip: border-box;
+   border: 1px solid rgba(0, 0, 0, .05);
+  border-radius: .375rem;
+}
+
+th {
+    color: grey;
+}
+
+tr {
+    color: black;
+}
+img {
+    vertical-align: middle;
+    border: 0;
+    height: 23px;
+}
+.banner-text {
+    color: #ffffff;
+    float: left;
+    line-height: 1em;
+    padding: 20px 0 5px;
+    align-items: center;
+}
+.company-info {
+position: fixed;
+left: 20px;
+}
+.user-data-1 {
+padding: 16px 0 5px;
+    display:inline;
+    position: fixed;
+right: 200px;
+}
+
+.user-data-2 {
+ padding: 16px 0 5px;
+    display:inline;
+    position: fixed;
+right: 100px;
+}

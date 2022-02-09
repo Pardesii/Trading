@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Portfolio</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css" th:href="@{/style.css}">
+
+</head>
+<style>
+    body {
+  margin: 0;
+  color: white !important;
+  background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+}
+
+table {
+   background-color: #fff;
+   background-clip: border-box;
+   border: 1px solid rgba(0, 0, 0, .05);
+  border-radius: .375rem;
+}
+
+th {
+    color: grey;
+}
+
+tr {
+    color: black;
+}
+
+</style>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <div class="company-info">
+                <a class="navbar-brand" href="#" th:href="@{/}"><img src="https://paypal.service-now.com/b64fb7cc13979200308236722244b0a2.iix"></a>
+                <span class="banner-text" data-original-title="Trade">Trade</span>
+            </div>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li style = "margin-left:100px;" sec:authorize="isAuthenticated()"><a style = "text-decoration: none !important;
+color: #fff !important;" th:href="@{/stocks}">Stocks</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/portfolio}">Portfolio</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/orders}">Orders</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/wallet}">Wallet</a></li>
+                <div class="user-data-1">
+                    <li><a style="color:#2dce89;" ><span sec:authentication="principal.username"> User</span></a></li>
+                </div>
+                <div class="user-data-2">
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" style="color:#fb643f;">Logout</a></li>
+                </div>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+
+<div class="container">
+    <h1>Summary</h1>
+</div>
+<br>
+<div class = "container">
+    <div class="row">
+        <div class = "col-md-6 justify-content-start">
+            <table class = "table table-striped table-borderless table-hover">
+                <thead class = "thead-dark">
+                <tr>
+                    <th> Wallet</th>
+                    <th> Invested</th>
+                    <th> Present Value </th>
+                    <th> Profit/Loss </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each = "user: ${users}">
+<!--                    <td><img th:src="${stock.image}" width="60" height="50"/></td>-->
+                    <td style = "font-weight: 400; font-size: 150%;"  th:text = "'Rs ' + ${user.getWallet}"></td>
+                    <td style = "font-weight: 400; font-size: 150%;" th:text = "'Rs ' + ${user.getInvestedValue}"></td>
+                    <td style = "font-weight: 400; font-size: 150%;" th:text = "'Rs ' + ${totalValue}"></td>
+<!--                    <td th:style = "${diff >= 0 ? 'color: green; font-weight: bolder; font-size: 150%;' : 'color: red; font-weight: bolder; font-size: 150%;'}" th:text = "'+ ' + ${diff}"></td>-->
+                    <td th:if = "${diff >= 0}" style="color: green; font-weight: bolder; font-size: 150%;" th:text = "'+' + ${diff}"></td>
+                    <td th:unless = "${diff >= 0}" style="color: red; font-weight: bolder; font-size: 150%;" th:text = "${diff}"></td>
+
+<!--                    <td th:text = "${stock.name}"></td>-->
+<!--                    <td th:text = "${stock.aum}"></td>-->
+<!--                    <td th:text = "${stock.diff}"></td>-->
+
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+
+
+<div class="container">
+    <h1>Holdings</h1>
+</div>
+
+<br>
+
+<div class = "container">
+    <div class="row">
+        <div class = "col-md-6 justify-content-start">
+            <table class = "table table-striped table-borderless table-hover">
+                <thead class = "thead-dark">
+                <tr>
+                    <th> Stock</th>
+                    <th> Invested</th>
+                    <th> Present Value </th>
+                    <th> Profit/Loss </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each = "hd: ${holdingData}">
+                    <td style = "font-weight: 350; font-size: 110%;" th:text = "${hd.stockName}"></td>
+                    <td style = "font-weight: 350; font-size: 110%;" th:text = "'Rs ' + ${hd.investedValue}"></td>
+                    <td style = "font-weight: 350; font-size: 110%;" th:text = "'Rs ' + ${hd.presentValue}"></td>
+<!--                    <td th:style = "${hd.diff >= 0 ? 'color: green; font-weight: bolder; font-size: 130%;' : 'color: red; font-weight: bolder; font-size: 110%;'}" th:text = "${hd.diff}"></td>-->
+                    <td th:if = "${hd.diff >= 0}" style="color: green; font-weight: bolder; font-size: 150%;" th:text = "'+ ' + ${hd.diff}"></td>
+                    <td th:unless = "${hd.diff >= 0}" style="color: red; font-weight: bolder; font-size: 150%;" th:text = "${hd.diff}"></td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

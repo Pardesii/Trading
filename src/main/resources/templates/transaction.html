@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:http="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Stocks</title>
+    <link rel="stylesheet" href="../static/style.css" th:href="@{/style.css}">
+    <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--    <link rel="stylesheet"-->
+    <!--          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
+    <!--          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"-->
+    <!--          crossorigin="anonymous">-->
+
+
+</head>
+<style>
+
+.modal {
+color:black !important;
+}
+
+  .user-data-1 {
+padding: 16px 0 5px;
+    display:inline;
+    position: fixed;
+    top: 5px;
+right: 200px;
+}
+
+.user-data-2 {
+ padding: 16px 0 5px;
+    display:inline;
+    position: fixed;
+     top: 5px;
+right: 100px;
+}
+
+.navbar {
+     background-color: #032069 !important;
+   border: none !important;
+   color: white !important;
+    text-align: center;
+}
+.modal{
+    z-index: 999999 !important;
+}
+.btn-w {
+    background-color: #fff !important;
+}
+.container-1 {
+    margin-left: 50px;
+}
+    body {
+  margin: 0;
+  color: white !important;
+  background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+}
+
+table {
+   background-color: #fff;
+   background-clip: border-box;
+   border: 1px solid rgba(0, 0, 0, .05);
+  border-radius: .375rem;
+}
+
+th {
+    color: grey;
+}
+
+tr {
+    color: black;
+}
+
+</style>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" th:href="@{/}"><img src="https://paypal.service-now.com/b64fb7cc13979200308236722244b0a2.iix"></a>
+        <span style="padding-bottom:10px;" class="banner-text" data-original-title="Trade">Trade</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <!--                <li class="nav-item">-->
+
+                <!--                    <a class="nav-link active" aria-current="page" href="/stocks">Stocks</a>-->
+                <!--                </li>-->
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="/portfolio">Portfolio</a>-->
+                <!--                </li>-->
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="#">Order History</a>-->
+                <!--                </li>-->
+
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="#">Order History</a>-->
+                <!--                </li>-->
+                <li style = "margin-left:100px;" sec:authorize="isAuthenticated()"><a style = "text-decoration: none !important;
+color: #fff !important;" th:href="@{/stocks}">Stocks</a></li>
+                <li style = "margin-left:100px; " sec:authorize="isAuthenticated()"><a style = " text-decoration: none !important;
+color: #fff !important;" th:href="@{/portfolio}">Portfolio</a></li>
+                <li style = "margin-left:100px;" sec:authorize="isAuthenticated()"><a style = " text-decoration: none !important;
+color: #fff !important;" th:href="@{/orders}">Orders</a></li>
+                <li style = "margin-left:100px;" sec:authorize="isAuthenticated()"><a style = "text-decoration: none !important;
+color: #fff !important;" th:href="@{/wallet}">Wallet</a></li>
+
+                <li style = "margin-left:100px;" sec:authorize="isAuthenticated()">
+                    <div class="user-data-1">
+                        <a style="color:#2dce89 !important;" ><span sec:authentication="principal.username"> User</span></a>
+                    </div>
+                </li>
+
+                <li style = "margin-left:100px;" sec:authorize="isAuthenticated()">
+                    <div class="user-data-2">
+                        <a th:href="@{/logout}" style="color:#fb643f !important;">Logout</a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- create navigation bar ( header) -->
+<!--<nav class="navbar navbar-inverse navbar-fixed-top">-->
+<!--    <div class="container">-->
+<!--        <div class="navbar-header">-->
+<!--            <button type="button" class="navbar-toggle collapsed"-->
+<!--                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"-->
+<!--                    aria-controls="navbar">-->
+<!--                <span class="sr-only">Toggle navigation</span> <span-->
+<!--                    class="icon-bar"></span> <span class="icon-bar"></span> <span-->
+<!--                    class="icon-bar"></span>-->
+<!--            </button>-->
+<!--            <div class="company-info">-->
+<!--                <a class="navbar-brand" href="#" th:href="@{/}"><img src="https://paypal.service-now.com/b64fb7cc13979200308236722244b0a2.iix"></a>-->
+<!--                <span class="banner-text" data-original-title="Trade">Trade</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="navbar" class="collapse navbar-collapse">-->
+<!--            <ul class="nav navbar-nav">-->
+<!--                <li sec:authorize="isAuthenticated()"><a th:href="@{/portfolio}">Portfolio</a></li>-->
+<!--                <li sec:authorize="isAuthenticated()"><a th:href="@{/orders}">Order History</a></li>-->
+<!--                <li sec:authorize="isAuthenticated()"><a th:href="@{/wallet}">Wallet</a></li>-->
+<!--                <div class="user-data-1">-->
+<!--                    <li><a style="color:#2dce89;" ><span sec:authentication="principal.username"> User</span></a></li>-->
+<!--                </div>-->
+<!--                <div class="user-data-2">-->
+<!--                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" style="color:#fb643f;">Logout</a></li>-->
+<!--                </div>-->
+
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<br>
+<br>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-4 offset-md-4">
+
+            <div th:if="${param.failure}">
+                <div class="alert alert-danger">Invalid Transaction.</div>
+            </div>
+            <div th:if="${param.success}">
+                <div class="alert alert-success">Transaction Successfully completed.</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+<!--    gee-->
+<!--</button>-->
+
+<!-- Modal -->
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="exampleModalLabel">Trade Stock</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <form>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="stock-name" class="form-label">Stock</label>-->
+<!--                        <input type="text" class="form-control" id="stock-name" value="${stock.curPrice}" readonly>-->
+<!--                    </div>-->
+<!--                    <select class="mb-3 form-select" aria-label="Default select example">-->
+<!--                        <option selected>Transaction type</option>-->
+<!--                        <option value="Buy">Buy</option>-->
+<!--                        <option value="Sell">Sell</option>-->
+
+<!--                    </select>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="quantity" class="form-label">Quantity</label>-->
+<!--                        <input type="number" class="form-control" id="quantity">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="cost" class="form-label">Price Per Stock</label>-->
+<!--                        <input type="number" class="form-control" id="cost">-->
+<!--                    </div>-->
+
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                <button type="button" class="btn btn-primary">Confirm</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
